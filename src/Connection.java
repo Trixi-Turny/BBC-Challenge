@@ -4,18 +4,34 @@ import java.util.Scanner;
 public class Connection {
 
 	private DefaultResponse resp;
+	private ArrayList<String> urls;
+
+	public DefaultResponse getResp() {
+		return resp;
+	}
+
+	public void setResp(DefaultResponse resp) {
+		this.resp = resp;
+	}
+
+	public ArrayList<String> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(ArrayList<String> urls) {
+		this.urls = urls;
+	}
 
 	public static void main(String[] args) {
-		ArrayList<String> urls = new ArrayList<String>();
-		boolean noMoreUrls = false;
+		Connection conn = new Connection();
+		conn.urls = new ArrayList<String>();
 		String url;
-
 		try (Scanner scanner = new Scanner(System.in)) {
-			System.out.println("Please enter the urls:\nInput Stream will finish when you press enter twice.");
+			System.out.println("Please enter the urls:\n(Press enter to finish).");
 			do{
 				url  = scanner.nextLine();
-				if(! url.equals("")){
-					urls.add(url);	
+				if(!url.equals("")){
+					conn.urls.add(url);	
 				}
 				else{
 					break;
@@ -23,7 +39,15 @@ public class Connection {
 					
 			}while(scanner.hasNextLine());
 			
-		System.out.println(urls.toString());
+		System.out.println(conn.urls.toString());
 		}
+	}
+	
+	//check if url starts with http or https
+	
+	public boolean validUrl(String url){
+		
+		return true;
+		
 	}
 }
