@@ -15,7 +15,7 @@ public class DefaultResponse implements Serializable{
 	private Object responseObject;
 	private String url;
 	private Integer statusCode;
-	private Integer contentLength;
+	private String contentLength;
 	private String date;
 	public String getUrl() {
 		return url;
@@ -33,11 +33,11 @@ public class DefaultResponse implements Serializable{
 		this.statusCode = statusCode;
 	}
 
-	public Integer getContentLength() {
+	public String getContentLength() {
 		return contentLength;
 	}
 
-	public void setContentLength(Integer contentLength) {
+	public void setContentLength(String contentLength) {
 		this.contentLength = contentLength;
 	}
 

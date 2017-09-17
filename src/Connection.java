@@ -1,12 +1,15 @@
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Connection {
+	
 
 	private DefaultResponse resp;
 	private ArrayList<String> urls;
@@ -51,29 +54,23 @@ public class Connection {
 	public ArrayList<DefaultResponse> getResponse(ArrayList<String> urls){
 		ArrayList<DefaultResponse> responses = new ArrayList<DefaultResponse>();
 		int timeout = 100000;
+
+		
 		if(urls!=null){
 			for(int i=0; i<urls.size(); i++){
 				try {
 					DefaultResponse responseObject = new DefaultResponse();
-					HashMap<Object, String> successMap = responseObject.getSuccessResponseMap();
 			        HttpURLConnection connection = (HttpURLConnection) new URL(urls.get(i)).openConnection();
 			        System.out.println(urls.get(i));
 			        connection.setConnectTimeout(timeout);
 			        connection.setReadTimeout(timeout);
 			        connection.setRequestMethod("HEAD");
 			        Integer responseCode = connection.getResponseCode();
-			        System.out.println(urls.get(i)+responseCode);
 			        responseObject.setUrl(urls.get(i));
 			        responseObject.setStatusCode(responseCode);
-			        responseObject.setContentLength(connection.getContentLength());
-			        responseObject.setDate(((Long) connection.getDate()).toString());
-			        
-			        
-//			        
-//			        successMap.put("Url", urls.get(i));
-//			        successMap.put("StatusCode", responseCode.toString());
-//			        successMap.put("Content Length", "");
-//			        successMap.put("Date", "");
+			        responseObject.setContentLength(connection.getContentLength()==-1? "Content Length not available": ((Integer) connection.getContentLength()).toString());
+			        responseObject.setDate((convertTime(connection.getDate())));
+			       
 			        responses.add(responseObject);
 //			        (200 <= responseCode && responseCode <= 399);
 			    } catch (IOException exception) {
@@ -90,6 +87,14 @@ public class Connection {
 		
 		
 	}
+	
+	
+	public String convertTime(long time){
+	    Date date = new Date(time);
+	    Format format = new SimpleDateFormat("E, dd MMM yyyy HH:mm:ss z");
+	    return format.format(date);
+	}
+	
 	
 	//check if url starts with http or https
 	/**
