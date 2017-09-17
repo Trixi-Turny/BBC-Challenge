@@ -19,9 +19,11 @@ public class ConnectionTest {
 		urls.add("http://site.mockito.org/");
 		
 		conn.setUrls(urls);
-		
+		conn.main(args);;
 		if(conn.getUrls()!=null){
 			for(int i=0; i<conn.getUrls().size(); i++){
+				
+			}
 				//is it a valid string (http or https)
 				//if yes  - ping send GET request
 				//if not - throw error Bad Url

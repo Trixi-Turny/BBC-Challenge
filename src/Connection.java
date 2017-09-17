@@ -31,7 +31,9 @@ public class Connection {
 			do{
 				url  = scanner.nextLine();
 				if(!url.equals("")){
-					conn.urls.add(url);	
+					if(conn.validStartToUrl(url)){
+						conn.urls.add(url);	
+					}
 				}
 				else{
 					break;
@@ -43,11 +45,21 @@ public class Connection {
 		}
 	}
 	
-	//check if url starts with http or https
 	
-	public boolean validUrl(String url){
-		
-		return true;
+	
+	//check if url starts with http or https
+	/**
+	 * This method checks 
+	 * @param url
+	 * @return
+	 */
+	public boolean validStartToUrl(String url){
+		if(url!=null){
+			if(url.matches("^(?i)(http(s)?)://.*$")){
+				return true;
+			}
+		}
+		return false;
 		
 	}
 }
