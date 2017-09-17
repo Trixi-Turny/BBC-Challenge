@@ -7,8 +7,6 @@ public class ConnectionTest {
 		
 		Gson gson = new Gson();
 		Connection conn = new Connection();
-//		Response resp = new Response();
-//		ArrayList<Response> responses = new ArrayList<Response>();
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add("http://www.bbc.co.uk/iplayer");
 		urls.add("https://google.com");

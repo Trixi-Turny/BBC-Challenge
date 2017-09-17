@@ -61,12 +61,9 @@ public class Connection {
 				
 				try {
 					Response responseObject = new Response();
-					LinkedHashMap<String, String> responseMap = (LinkedHashMap<String, String>) responseObject.getResponseMap();
 					if(!validStartToUrl(urls.get(i))){
-						responseMap.put("Url", urls.get(i));
-						responseMap.put("Error", "invalid url");
-//			        	 responseObject.setUrl(urls.get(i));
-//			        	 responseObject.setError("invalid url");
+			        	 responseObject.setUrl(urls.get(i));
+			        	 responseObject.setError("invalid url");
 						System.out.println((HttpURLConnection) new URL(urls.get(i)).openConnection());
 					}
 	
@@ -79,15 +76,10 @@ public class Connection {
 				        request.setReadTimeout(timeout);
 				        request.setRequestMethod("GET");
 				        Integer responseCode = request.getResponseCode();
-				    	responseMap.put("Url", urls.get(i));
-						responseMap.put("StatusCode", responseCode.toString());
-						responseMap.put("Content_Length", request.getContentLength()==-1? "Not available": ((Integer) request.getContentLength()).toString());
-						responseMap.put("Date", convertTime(request.getDate()));
-//						
-//				        responseObject.setUrl(urls.get(i));
-//				        responseObject.setStatusCode(responseCode);
-//				        responseObject.setContentLength(request.getContentLength()==-1? "Not available": ((Integer) request.getContentLength()).toString());
-//				        responseObject.setDate((convertTime(request.getDate())));
+				        responseObject.setUrl(urls.get(i));
+				        responseObject.setStatusCode(responseCode);
+				        responseObject.setContentLength(request.getContentLength()==-1? "Not available": ((Integer) request.getContentLength()).toString());
+				        responseObject.setDate((convertTime(request.getDate())));
 			        }
 			       
 			        responses.add(responseObject);

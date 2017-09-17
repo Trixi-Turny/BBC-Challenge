@@ -1,7 +1,9 @@
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;  
-import java.util.Map; 
+import java.util.Map;
+
+import com.google.gson.annotations.SerializedName; 
 /**
  * This object represents a response from a web service.
  * 
@@ -11,23 +13,12 @@ import java.util.Map;
 public class Response implements Serializable {
 
 	private static final long serialVersionUID = -5133237403603447455L;
-	private String url;
-	private Integer statusCode;
-	private String contentLength;
-	private String date;
-	private String error;
-	private Map<String, String>responseMap = new LinkedHashMap<String, String>(); 
+	@SerializedName("Url") private String url;
+	@SerializedName("Status_code") private Integer statusCode;
+	@SerializedName("Content_length") private String contentLength;
+	@SerializedName("Date") private String date;
+	@SerializedName("Error") private String error;
 	
-	
-
-	public Map<String, String> getResponseMap() {
-		return responseMap;
-	}
-
-	public void setResponseObject(Map<String, String> responseMap) {
-		this.responseMap = responseMap;
-	}
-
 	public String getError() {
 		return error;
 	}
