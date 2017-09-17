@@ -1,10 +1,11 @@
 import java.util.ArrayList;
-
+import com.google.gson.Gson;;
 public class ConnectionTest {
+
 
 	public static void main(String[] args){
 		
-	
+		Gson gson = new Gson();
 		Connection conn = new Connection();
 		DefaultResponse resp = new DefaultResponse();
 		ArrayList<DefaultResponse> responses = new ArrayList<DefaultResponse>();
@@ -19,11 +20,8 @@ public class ConnectionTest {
 		urls.add("http://site.mockito.org/");
 		
 		conn.setUrls(urls);
-		conn.main(args);;
-		if(conn.getUrls()!=null){
-			for(int i=0; i<conn.getUrls().size(); i++){
-				
-			}
+//		conn.main(args);
+		System.out.println("Responses:"+ gson.toJson(conn.getResponse(urls)));
 				//is it a valid string (http or https)
 				//if yes  - ping send GET request
 				//if not - throw error Bad Url
@@ -31,7 +29,8 @@ public class ConnectionTest {
 				//add status code, content length, date to reponse object
 				//add response object to object list
 				
-			}
+		
+		
 			
 			
 
