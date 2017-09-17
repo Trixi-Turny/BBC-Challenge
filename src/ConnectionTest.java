@@ -7,8 +7,8 @@ public class ConnectionTest {
 		
 		Gson gson = new Gson();
 		Connection conn = new Connection();
-		DefaultResponse resp = new DefaultResponse();
-		ArrayList<DefaultResponse> responses = new ArrayList<DefaultResponse>();
+//		Response resp = new Response();
+//		ArrayList<Response> responses = new ArrayList<Response>();
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add("http://www.bbc.co.uk/iplayer");
 		urls.add("https://google.com");
@@ -20,7 +20,7 @@ public class ConnectionTest {
 		urls.add("http://site.mockito.org/");
 		
 		conn.setUrls(urls);
-//		conn.main(args);
+		
 		System.out.println("Responses:"+ gson.toJson(conn.getResponse(urls)));
 				//is it a valid string (http or https)
 				//if yes  - ping send GET request
