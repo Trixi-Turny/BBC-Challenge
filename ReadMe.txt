@@ -1,15 +1,13 @@
-//take a list of urls from the user
-//collect the urls in an array or collection
-//check if url is valid
-//for each valid url - make the request - collect successes and errors and output a collection of responses in son
+This project is a web service that makes GET requests to a list of URLs entered by the user and returns the response information usually sent back in the header.
 
-Classes
 
-Url - may not be needed
-DefaultResponse - the response object
-Connection //this contains the logic
-ConnectionTest //Unit test for Connection
+To Run the program unzip the project folder
 
+Go to 
+
+
+
+Assumptions
 
 
 
