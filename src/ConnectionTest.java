@@ -1,15 +1,16 @@
+
 import java.util.ArrayList;
 import com.google.gson.Gson;;
 public class ConnectionTest {
 
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws CustomException{
 		
 		Gson gson = new Gson();
 		Connection conn = new Connection();
 		ArrayList<String> urls = new ArrayList<String>();
 		urls.add("http://www.bbc.co.uk/iplayer");
-		urls.add("https://google.com");
+		urls.add("https://google.com_3");
 		urls.add("bad://address");
 		urls.add("http://www.bbc.co.uk/missing/thing");
 		urls.add("http://not.exists.bbc.co.uk/");
@@ -19,13 +20,9 @@ public class ConnectionTest {
 		
 		conn.setUrls(urls);
 		
-		System.out.println("Responses:"+ gson.toJson(conn.getResponse(urls)));
-				//is it a valid string (http or https)
-				//if yes  - ping send GET request
-				//if not - throw error Bad Url
-				//add error to errorsMap
-				//add status code, content length, date to reponse object
-				//add response object to object list
+	
+			System.out.println("Responses:"+ gson.toJson(conn.getResponse(urls)));
+		
 				
 		
 		
