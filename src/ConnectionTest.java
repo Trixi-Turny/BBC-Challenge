@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 /**
  * Test class for testing Connection functionality
  * @author trixiturny
- *
+ * @version 1.0
  */
 public class ConnectionTest {
 

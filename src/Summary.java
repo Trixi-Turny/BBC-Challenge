@@ -1,5 +1,11 @@
 import com.google.gson.annotations.SerializedName;
 
+
+/**
+ * Summary Object to cater for summarizing responses for http requests
+ * @author trixiturny
+ * @version 1.0
+ */
 public class Summary {
 	@SerializedName("Status_code") private Integer statusCode;
 	@SerializedName("Number_of_responses") private Integer numberOfResponses;

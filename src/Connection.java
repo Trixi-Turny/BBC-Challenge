@@ -10,7 +10,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import com.google.gson.Gson;
 
@@ -169,6 +168,12 @@ public class Connection {
 
 	}
 
+	/**
+	 * This method counts the number of responses for each status code
+	 * 
+	 * @param responses
+	 * @return ArrayList of Summary Objects
+	 */
 	public ArrayList<Summary> getSummary(ArrayList<Response> responses) {
 		HashMap<Integer, Integer> summary = new HashMap<Integer, Integer>();
 		ArrayList<Summary> summaryList = new ArrayList<Summary>();
@@ -184,18 +189,16 @@ public class Connection {
 				}
 			}
 			Iterator it = summary.entrySet().iterator();
-		    while (it.hasNext()) {
-		        Map.Entry pair = (Map.Entry)it.next();
-		        Summary sumObject  = new Summary();
-		        sumObject.setStatusCode((Integer)pair.getKey());
-		        sumObject.setNumberOfResponses((Integer)pair.getValue());
-		        summaryList.add(sumObject);
-	
-		        it.remove(); // avoids a ConcurrentModificationException
-		    }
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				Summary sumObject = new Summary();
+				sumObject.setStatusCode((Integer) pair.getKey());
+				sumObject.setNumberOfResponses((Integer) pair.getValue());
+				summaryList.add(sumObject);
+				it.remove(); // avoids a ConcurrentModificationException
+			}
 		}
-			
-	
+
 		return summaryList;
 	}
 }
