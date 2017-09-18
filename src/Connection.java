@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -51,7 +50,7 @@ public class Connection {
 		}
 	}
 
-	public ArrayList<Response> getResponse(ArrayList<String> urls) throws  CustomException {
+	public ArrayList<Response> getResponse(ArrayList<String> urls) {
 		ArrayList<Response> responses = new ArrayList<Response>();
 		int timeout = 10000;
 		if (urls != null) {
@@ -66,10 +65,8 @@ public class Connection {
 					}
 
 					else {
-						
 
 						HttpURLConnection request = (HttpURLConnection) new URL(urls.get(i)).openConnection();
-		
 						request.setConnectTimeout(timeout);
 						request.setReadTimeout(timeout);
 						request.setRequestMethod("GET");
@@ -79,26 +76,22 @@ public class Connection {
 						responseObject.setContentLength(request.getContentLength() == -1 ? "Not available"
 								: ((Integer) request.getContentLength()).toString());
 						responseObject.setDate((convertTime(request.getDate())));
-						pingUrl(urls.get(i));
 					}
 
-				} catch (UnknownHostException e) {
+				} catch (IllegalArgumentException e) {
 					responseObject.setUrl(urls.get(i));
-					responseObject.setError("Unknown Host");
-				} 
-				catch (SocketTimeoutException e) {
+					responseObject.setError(e.getMessage());
+				} catch (SocketTimeoutException e) {
 					responseObject.setUrl(urls.get(i));
 					responseObject.setError("Connection Timeout");
-				}catch (IOException e) {
+				} catch (UnknownHostException e) {
+					responseObject.setUrl(urls.get(i));
+					responseObject.setError(
+							"Site can not be reached. Check that the url is correct or that you are connected to the internet.");
+				} catch (IOException e) {
 					responseObject.setUrl(urls.get(i));
 					responseObject.setError(e.getMessage());
-				}catch (CustomException e) {
-				
-					responseObject.setUrl(urls.get(i));
-					responseObject.setError(e.getMessage());
-
 				} finally {
-
 					responses.add(responseObject);
 				}
 
@@ -106,18 +99,6 @@ public class Connection {
 
 		}
 		return responses;
-
-	}
-
-	public static boolean pingUrl(final String address) throws CustomException, UnknownHostException, SocketTimeoutException, IOException {
-
-		final URL url = new URL(address);
-		final HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-		if (urlConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
-			return true;
-		}else{
-			throw new CustomException(address, "Malformed Url or Unknown Host.");
-		}
 
 	}
 
@@ -145,9 +126,10 @@ public class Connection {
 	 */
 	public boolean validStartToUrl(String url) {
 		if (url != null) {
-			if (url.trim().matches("^(?i)(http(s)?)://.*$")) {
+			if (url.trim().matches("^(?i)(http(s)?)://.[^\\s|\\t|\\r|\\n|\\{|\\}|<|>|\"|~|`|^]*$")) {
 				return true;
 			}
+
 		}
 		return false;
 
