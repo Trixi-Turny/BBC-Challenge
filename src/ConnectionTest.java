@@ -2,8 +2,17 @@
 import java.util.ArrayList;
 import com.google.gson.Gson;
 
+/**
+ * Test class for testing Connection functionality
+ * @author trixiturny
+ *
+ */
 public class ConnectionTest {
 
+	/**
+	 * Main method for running test cases
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		Gson gson = new Gson();

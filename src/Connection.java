@@ -7,15 +7,17 @@ import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 import com.google.gson.Gson;
 
 /**
  * Connection Object to orchestrate the logic of a GET request
+ * 
  * @author trixiturny
  * @version 1.0
  */
-		
+
 public class Connection {
 
 	private Response resp;
@@ -37,6 +39,11 @@ public class Connection {
 		this.urls = urls;
 	}
 
+	/**
+	 * Main method to take user inputs
+	 * 
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Gson gson = new Gson();
 		Connection conn = new Connection();
@@ -55,19 +62,22 @@ public class Connection {
 
 			} while (scanner.hasNextLine());
 			responses = conn.getResponse(conn.urls);
-			System.out.println("Urls Entered: "+conn.urls.toString());
+			System.out.println("Urls Entered: " + conn.urls.toString());
 			System.out.println("Responses: ");
-			//Print one by one for better readability
-			for(Response r: responses){
+			// Print one by one for better readability
+			for (Response r : responses) {
 				System.out.println(gson.toJson(r));
 			}
 		}
-			
+
 	}
 
 	/**
-	 * This method takes a list of urls and gets http response header information for each 
-	 * @param urls - the urls to send GET request to
+	 * This method takes a list of urls and gets http response header
+	 * information for each
+	 * 
+	 * @param urls
+	 *            - the urls to send GET request to
 	 * @return ArrayList of Response Objects
 	 */
 	public ArrayList<Response> getResponse(ArrayList<String> urls) {
@@ -137,9 +147,12 @@ public class Connection {
 	}
 
 	/**
-	 * This method checks if the url starts with either http:// or https:// and if it contains forbidden characters, such as ~`^{}<>"^.
-	 * The check is Case insensitive.
-	 * @param url - the url string to check
+	 * This method checks if the url starts with either http:// or https:// and
+	 * if it contains forbidden characters, such as ~`^{}<>"^. The check is Case
+	 * insensitive.
+	 * 
+	 * @param url
+	 *            - the url string to check
 	 * @return true or false according to validity
 	 */
 	public boolean validStartToUrl(String url) {
@@ -151,5 +164,20 @@ public class Connection {
 		}
 		return false;
 
+	}
+
+	public HashMap<Integer, Integer> getSummary(ArrayList<Response> responses) {
+		HashMap<Integer, Integer> summary = new HashMap<Integer, Integer>();
+
+		for (int i = 0; i < responses.size(); i++) {
+
+			Integer key = summary.get(responses.get(i).getStatusCode());
+			if (key != null) {
+				summary.put(key, summary.get(key) + 1);
+			} else {
+				summary.put(key, 1);
+			}
+		}
+		return summary;
 	}
 }

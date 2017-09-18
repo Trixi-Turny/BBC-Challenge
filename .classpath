@@ -2,11 +2,11 @@
 <classpath>
 	<classpathentry kind="src" path="src">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="BBC-Challenge"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="/Users/trixiturny/Google Drive/IT/14. Java/Workspace/BBC-Challenge/lib"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry exported="true" kind="lib" path="gson-2.2.3.jar"/>
 	<classpathentry kind="lib" path="/Users/trixiturny/Google Drive/IT/14. Java/Workspace/BBC-Challenge/lib/gson-2.2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/trixiturny/Google Drive/IT/14. Java/Workspace/BBC-Challenge/lib"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
