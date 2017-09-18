@@ -8,7 +8,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
+import com.google.gson.Gson;
 
+/**
+ * Connection Object to orchestrate the logic of a GET request
+ * @author trixiturny
+ * @version 1.0
+ */
+		
 public class Connection {
 
 	private Response resp;
@@ -31,7 +38,9 @@ public class Connection {
 	}
 
 	public static void main(String[] args) {
+		Gson gson = new Gson();
 		Connection conn = new Connection();
+		ArrayList<Response> responses;
 		conn.urls = new ArrayList<String>();
 		String url;
 		try (Scanner scanner = new Scanner(System.in)) {
@@ -45,11 +54,22 @@ public class Connection {
 				}
 
 			} while (scanner.hasNextLine());
-
-			System.out.println(conn.urls.toString());
+			responses = conn.getResponse(conn.urls);
+			System.out.println("Urls Entered: "+conn.urls.toString());
+			System.out.println("Responses: ");
+			//Print one by one for better readability
+			for(Response r: responses){
+				System.out.println(gson.toJson(r));
+			}
 		}
+			
 	}
 
+	/**
+	 * This method takes a list of urls and gets http response header information for each 
+	 * @param urls - the urls to send GET request to
+	 * @return ArrayList of Response Objects
+	 */
 	public ArrayList<Response> getResponse(ArrayList<String> urls) {
 		ArrayList<Response> responses = new ArrayList<Response>();
 		int timeout = 10000;
@@ -117,11 +137,9 @@ public class Connection {
 	}
 
 	/**
-	 * This method checks if the url starts with either http:// or https://.
-	 * Case insensitive.
-	 * 
-	 * @param url
-	 *            - the url string to check
+	 * This method checks if the url starts with either http:// or https:// and if it contains forbidden characters, such as ~`^{}<>"^.
+	 * The check is Case insensitive.
+	 * @param url - the url string to check
 	 * @return true or false according to validity
 	 */
 	public boolean validStartToUrl(String url) {

@@ -1,35 +1,15 @@
 
 import java.util.ArrayList;
-import com.google.gson.Gson;;
+import com.google.gson.Gson;
+
 public class ConnectionTest {
 
+	public static void main(String[] args) {
 
-	public static void main(String[] args) throws CustomException{
-		
 		Gson gson = new Gson();
 		Connection conn = new Connection();
 		ArrayList<String> urls = new ArrayList<String>();
-		urls.add("http://www.bbc.co.uk/iplayer");
-		urls.add("https://google.com");
-		urls.add("bad://address");
-		urls.add("http://www.bbc.co.uk/missing/thing><");
-		urls.add("http://not.exists.bbc.co.uk/");
-		urls.add("http://www.oracle.com/technetwork/java/javase/downloads/index.html");
-		urls.add("https://www.pets4homes.co.uk/images/articles/1646/large/kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
-		urls.add("http://site.mockito.org/");
-		
-		conn.setUrls(urls);
-		
-	
-			System.out.println("Responses:"+ gson.toJson(conn.getResponse(urls)));
-		
-				
-		
-		
-			
-			
 
-		
 		System.out.println("Test Case 1.:");
 		System.out.println();
 		urls.add("http://www.bbc.co.uk/iplayer");
@@ -38,26 +18,27 @@ public class ConnectionTest {
 		urls.add("http://www.bbc.co.uk/missing/thing");
 		urls.add("http://not.exists.bbc.co.uk/");
 		urls.add("http://www.oracle.com/technetwork/java/javase/downloads/index.html");
-		urls.add("https://www.pets4homes.co.uk/images/articles/1646/large/kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
+		urls.add(
+				"https://www.pets4homes.co.uk/images/articles/1646/large/kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
 		urls.add("http://site.mockito.org/");
 		conn.setUrls(urls);
-		
-	
+
 		System.out.println("Testing the following urls :");
 		System.out.println();
-		for( String u : urls)
-		{
+
+		for (String u : conn.getUrls()) {
 			System.out.println(u);
-		};
-		
-		ArrayList<Response> responses = conn.getResponse(urls);
-		for (Response r: responses){
-			System.out.println(gson.toJson(r));
 		}
 		
-		
-		
 		System.out.println();
+		System.out.println("Responses:");
+		System.out.println();
+		ArrayList<Response> responses = conn.getResponse(conn.getUrls());
+		for (Response r : responses) {
+			System.out.println(gson.toJson(r));
+		}
+
+		System.out.println("--------------------------------");
 		System.out.println();
 		System.out.println("Test Case 2. (added invalid characters):");
 		urls.clear();
@@ -69,26 +50,28 @@ public class ConnectionTest {
 		urls.add("http://www.bbc.co.uk/missing/thing><");
 		urls.add("http://not.exists.bbc.co.uk/");
 		urls.add("http://www.oracle.com/technetwork/java/javase/downloads/index.html<>");
-		urls.add("https://www.pets4homes.co.uk/images/articles/1646/large/{kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
+		urls.add(
+				"https://www.pets4homes.co.uk/images/articles/1646/large/{~kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
 		urls.add("http://site.mockito.org/");
 		conn.setUrls(urls);
-		
-	
+
 		System.out.println("Testing the following urls :");
 		System.out.println();
-		for( String u : urls)
-		{
+		for (String u : urls) {
 			System.out.println(u);
-		};
+		}
+		
 		System.out.println();
-		responses = conn.getResponse(urls);
-		for (Response r: responses){
+		System.out.println("Responses:");
+		
+		responses = conn.getResponse(conn.getUrls());
+		for (Response r : responses) {
 			System.out.println(gson.toJson(r));
 		}
 
+		System.out.println("--------------------------------");
 		System.out.println();
-		System.out.println();
-		System.out.println("Test Case 3 (Empty Strings):");
+		System.out.println("Test Case 3 (Empty Strings, added tabs, no hostname):");
 		urls.clear();
 		responses.clear();
 		System.out.println();
@@ -98,24 +81,24 @@ public class ConnectionTest {
 		urls.add("http://");
 		urls.add("http://not.exists.bbc.co.uk/");
 		urls.add("http://www.oracle.com/technetwork/java/javase/downloads/index.html<>");
-		urls.add("https://www.pets4homes.co.uk/images/articles/1646/large/kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
+		urls.add("https://www.	pets4homes.co.uk/images/articles/1646/large/kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
 		urls.add("http://site.mockito.org/");
 		conn.setUrls(urls);
-		
-	
+
 		System.out.println("Testing the following urls :");
 		System.out.println();
-		for( String u : urls)
-		{
+
+		for (String u : conn.getUrls()) {
 			System.out.println(u);
-		};
+		}
 		System.out.println();
-		responses = conn.getResponse(urls);
-		for (Response r: responses){
+		System.out.println("Responses:");
+		System.out.println();
+		responses = conn.getResponse(conn.getUrls());
+		for (Response r : responses) {
 			System.out.println(gson.toJson(r));
 		}
-		
-		
+
 	}
 
 }
