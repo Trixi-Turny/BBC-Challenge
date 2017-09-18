@@ -46,6 +46,9 @@ public class ConnectionTest {
 		for (Response r : responses) {
 			System.out.println(gson.toJson(r));
 		}
+		System.out.println();
+		System.out.println("Summary:");
+		System.out.println(gson.toJson(conn.getSummary(responses)));
 
 		System.out.println("--------------------------------");
 		System.out.println();
@@ -77,6 +80,9 @@ public class ConnectionTest {
 		for (Response r : responses) {
 			System.out.println(gson.toJson(r));
 		}
+		System.out.println();
+		System.out.println("Summary:");
+		System.out.println(gson.toJson(conn.getSummary(responses)));
 
 		System.out.println("--------------------------------");
 		System.out.println();
@@ -92,6 +98,7 @@ public class ConnectionTest {
 		urls.add("http://www.oracle.com/technetwork/java/javase/downloads/index.html<>");
 		urls.add("https://www.	pets4homes.co.uk/images/articles/1646/large/kitten-emergencies-signs-to-look-out-for-537479947ec1c.jpg");
 		urls.add("http://site.mockito.org/");
+		urls.add("https://www.bbc.co.uk/iplayer");
 		conn.setUrls(urls);
 
 		System.out.println("Testing the following urls :");
@@ -107,6 +114,10 @@ public class ConnectionTest {
 		for (Response r : responses) {
 			System.out.println(gson.toJson(r));
 		}
+		
+		System.out.println();
+		System.out.println("Summary:");
+		System.out.println(gson.toJson(conn.getSummary(responses)));
 
 	}
 

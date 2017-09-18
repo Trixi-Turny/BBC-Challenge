@@ -8,6 +8,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import com.google.gson.Gson;
 
@@ -68,6 +71,7 @@ public class Connection {
 			for (Response r : responses) {
 				System.out.println(gson.toJson(r));
 			}
+			System.out.println(gson.toJson(conn.getSummary(responses)));
 		}
 
 	}
@@ -160,24 +164,38 @@ public class Connection {
 			if (url.trim().matches("^(?i)(http(s)?)://.[^\\s|\\t|\\r|\\n|\\{|\\}|<|>|\"|~|`|^]*$")) {
 				return true;
 			}
-
 		}
 		return false;
 
 	}
 
-	public HashMap<Integer, Integer> getSummary(ArrayList<Response> responses) {
+	public ArrayList<Summary> getSummary(ArrayList<Response> responses) {
 		HashMap<Integer, Integer> summary = new HashMap<Integer, Integer>();
-
-		for (int i = 0; i < responses.size(); i++) {
-
-			Integer key = summary.get(responses.get(i).getStatusCode());
-			if (key != null) {
-				summary.put(key, summary.get(key) + 1);
-			} else {
-				summary.put(key, 1);
+		ArrayList<Summary> summaryList = new ArrayList<Summary>();
+		if (responses != null) {
+			for (int i = 0; i < responses.size(); i++) {
+				Integer key = responses.get(i).getStatusCode();
+				if (key != null) {
+					if (summary.containsKey(key)) {
+						summary.put(key, summary.get(key) + 1);
+					} else {
+						summary.put(key, 1);
+					}
+				}
 			}
+			Iterator it = summary.entrySet().iterator();
+		    while (it.hasNext()) {
+		        Map.Entry pair = (Map.Entry)it.next();
+		        Summary sumObject  = new Summary();
+		        sumObject.setStatusCode((Integer)pair.getKey());
+		        sumObject.setNumberOfResponses((Integer)pair.getValue());
+		        summaryList.add(sumObject);
+	
+		        it.remove(); // avoids a ConcurrentModificationException
+		    }
 		}
-		return summary;
+			
+	
+		return summaryList;
 	}
 }
